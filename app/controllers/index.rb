@@ -29,13 +29,17 @@ get '/auth' do
 
 end
 
+
+post '/status/:job_id' do
+  if request.xhr?
+    is_done = job_is_complete(params[:job_id])
+    return is_done.to_s
+  else
+    redirect '/'
+  end
+end
+
 post '/sendtweet' do
   @user = User.find(session[:user_id])
-
-  twitter_instance = Twitter.configure do |config|
-    config.oauth_token = @user.oauth_token
-    config.oauth_token_secret = @user.oauth_secret
-  end
-
-  Twitter.update(params[:theTweet])
+  @user.tweet(params[:theTweet], params[:theTime].to_i)
 end

@@ -21,6 +21,11 @@ gem 'twitter'
 
 gem 'rspec'
 
+
+gem 'sidekiq'
+
+gem 'redis'
+
 group :test do
   gem 'faker'
   gem 'rspec'
